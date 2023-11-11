@@ -1,5 +1,5 @@
 from project import db, app
-
+import re
 
 # Customer model
 class Customer(db.Model):
@@ -10,6 +10,10 @@ class Customer(db.Model):
     age = db.Column(db.Integer)
 
     def __init__(self, name, city, age):
+        
+        if not re.match("^[a-zA-Z ]{1,20}$", name)  or not re.match("^[a-zA-Z ]{1,20}$", city):
+            raise ValueError("Inappropriate book or author data. Only letters and spaces with a maximum length of 20 are allowed.")
+
         self.name = name
         self.city = city
         self.age = age
